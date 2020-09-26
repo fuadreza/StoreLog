@@ -1,8 +1,8 @@
-package io.github.fuadreza.storelog.localdb.supply
+package io.github.fuadreza.storelog.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import io.github.fuadreza.storelog.model.Supply
+import io.github.fuadreza.storelog.database.entity.Supply
 import io.github.fuadreza.storelog.utils.MyConstants
 
 /**
@@ -14,7 +14,7 @@ import io.github.fuadreza.storelog.utils.MyConstants
 interface SupplyDao  {
 
     @Query("SELECT * FROM ${MyConstants.DB.SUPPLY}")
-    fun getSupply() : LiveData<List<Supply>>
+    fun fetch() : LiveData<List<Supply>>
 
     @Query("SELECT * FROM ${MyConstants.DB.SUPPLY} WHERE id = :id")
     fun getSupplyById(id: Int): LiveData<Supply>

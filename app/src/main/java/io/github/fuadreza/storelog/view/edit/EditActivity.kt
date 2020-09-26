@@ -1,15 +1,17 @@
-package io.github.fuadreza.storelog.ui.edit
+package io.github.fuadreza.storelog.view.edit
 
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.fuadreza.storelog.R
-import io.github.fuadreza.storelog.model.Supply
-import io.github.fuadreza.storelog.ui.home.SupplyState
-import io.github.fuadreza.storelog.ui.home.SupplyViewModel
+import io.github.fuadreza.storelog.database.entity.Supply
+import io.github.fuadreza.storelog.view.home.SupplyState
+import io.github.fuadreza.storelog.viewmodel.SupplyViewModel
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,9 +21,9 @@ import kotlinx.coroutines.launch
  * Dibuat dengan kerjakerasbagaiquda oleh Shifu pada tanggal 26/09/2020.
  *
  */
-
+@AndroidEntryPoint
 class EditActivity : AppCompatActivity() {
-    private lateinit var supplyViewModel: SupplyViewModel
+    private val supplyViewModel: SupplyViewModel by viewModels()
 
     var name: String = ""
     var count: Int = 0
@@ -41,11 +43,7 @@ class EditActivity : AppCompatActivity() {
 
         setupViews(supply)
 
-        supplyViewModel = ViewModelProvider(this).get(SupplyViewModel::class.java).apply {
-            /*CoroutineScope(Dispatchers.IO).launch {
-                getSupplyById(id)
-            }*/
-        }
+        lifecycle.addObserver(supplyViewModel)
 
         supplyViewModel.supplyState.observe(this, Observer<SupplyState> { state ->
             handleUI(state)
@@ -71,13 +69,14 @@ class EditActivity : AppCompatActivity() {
         val supplier = supplySupplier.text.toString()
 
         if (validate(name, count, supplier)) {
-            val updatedSupply = Supply(
-                id,
-                name,
-                count.toInt(),
-                supplier,
-                "2020"
-            )
+            val updatedSupply =
+                Supply(
+                    id,
+                    name,
+                    count.toInt(),
+                    supplier,
+                    "2020"
+                )
 
             CoroutineScope(Dispatchers.IO).launch {
                 supplyViewModel.updateSupply(updatedSupply)

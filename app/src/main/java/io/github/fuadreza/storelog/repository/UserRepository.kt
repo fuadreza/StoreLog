@@ -1,7 +1,7 @@
-package io.github.fuadreza.storelog.repo
+package io.github.fuadreza.storelog.repository
 
 import android.util.Log
-import io.github.fuadreza.storelog.localdb.user.UserDao
+import io.github.fuadreza.storelog.database.dao.UserDao
 import java.lang.Exception
 
 /**
@@ -9,7 +9,7 @@ import java.lang.Exception
  *
  */
 
-class UserRepo(private val userDao: UserDao) {
+class UserRepository(private val userDao: UserDao) {
 
     suspend fun loginUser(username: String, password: String): Boolean {
         try {

@@ -1,17 +1,18 @@
-package io.github.fuadreza.storelog.repo
+package io.github.fuadreza.storelog.repository
 
 import androidx.lifecycle.LiveData
-import io.github.fuadreza.storelog.localdb.supply.SupplyDao
-import io.github.fuadreza.storelog.model.Supply
+import io.github.fuadreza.storelog.database.dao.SupplyDao
+import io.github.fuadreza.storelog.database.entity.Supply
+import javax.inject.Inject
 
 /**
  * Dibuat dengan kerjakerasbagaiquda oleh Shifu pada tanggal 26/09/2020.
  *
  */
 
-class SupplyRepo(private val supplyDao: SupplyDao) {
+class SupplyRepository @Inject constructor(private val supplyDao: SupplyDao) {
 
-    val allSupplies: LiveData<List<Supply>> = supplyDao.getSupply()
+    suspend fun fetchSupply() = supplyDao.fetch()
 
     suspend fun insert(supply: Supply){
         supplyDao.insert(supply)

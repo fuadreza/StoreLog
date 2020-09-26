@@ -1,11 +1,10 @@
-package io.github.fuadreza.storelog.localdb.user
+package io.github.fuadreza.storelog.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.github.fuadreza.storelog.model.User
+import io.github.fuadreza.storelog.database.entity.User
 import io.github.fuadreza.storelog.utils.MyConstants
 
 /**

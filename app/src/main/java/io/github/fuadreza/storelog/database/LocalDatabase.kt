@@ -1,15 +1,14 @@
-package io.github.fuadreza.storelog.localdb
+package io.github.fuadreza.storelog.database
 
 import android.content.Context
-import androidx.room.CoroutinesRoom
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import io.github.fuadreza.storelog.localdb.supply.SupplyDao
-import io.github.fuadreza.storelog.localdb.user.UserDao
-import io.github.fuadreza.storelog.model.Supply
-import io.github.fuadreza.storelog.model.User
+import io.github.fuadreza.storelog.database.dao.SupplyDao
+import io.github.fuadreza.storelog.database.dao.UserDao
+import io.github.fuadreza.storelog.database.entity.Supply
+import io.github.fuadreza.storelog.database.entity.User
 import io.github.fuadreza.storelog.utils.MyConstants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -30,8 +29,7 @@ abstract class LocalDatabase: RoomDatabase() {
         private var INSTANCE: LocalDatabase? = null
 
         fun getDatabase(
-            context: Context,
-            scope: CoroutineScope
+            context: Context
         ): LocalDatabase {
             val tempInstance = INSTANCE
             if(tempInstance != null) {
@@ -43,12 +41,12 @@ abstract class LocalDatabase: RoomDatabase() {
                     LocalDatabase::class.java,
                     MyConstants.DB.NAME
                 )
-                    .addCallback(StoreDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 return instance
             }
         }
+
     }
 
     private class StoreDatabaseCallback(
@@ -69,15 +67,35 @@ abstract class LocalDatabase: RoomDatabase() {
 
             userDao.deleteAll()
 
-            var user = User(0,userName = "admin1", passWord = "123456")
+            var user = User(
+                0,
+                userName = "admin1",
+                passWord = "123456"
+            )
             userDao.insert(user)
-            user = User(1,userName = "admin2", passWord = "123456")
+            user = User(
+                1,
+                userName = "admin2",
+                passWord = "123456"
+            )
             userDao.insert(user)
-            user = User(2,userName = "admin3", passWord = "123456")
+            user = User(
+                2,
+                userName = "admin3",
+                passWord = "123456"
+            )
             userDao.insert(user)
-            user = User(3,userName = "admin4", passWord = "123456")
+            user = User(
+                3,
+                userName = "admin4",
+                passWord = "123456"
+            )
             userDao.insert(user)
-            user = User(4,userName = "admin5", passWord = "123456")
+            user = User(
+                4,
+                userName = "admin5",
+                passWord = "123456"
+            )
             userDao.insert(user)
         }
 

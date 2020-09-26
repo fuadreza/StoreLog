@@ -1,4 +1,4 @@
-package io.github.fuadreza.storelog.ui.login
+package io.github.fuadreza.storelog.view.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import io.github.fuadreza.storelog.R
-import io.github.fuadreza.storelog.ui.home.SupplyActivity
+import io.github.fuadreza.storelog.view.home.SupplyActivity
+import io.github.fuadreza.storelog.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO

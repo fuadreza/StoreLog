@@ -1,7 +1,7 @@
-package io.github.fuadreza.storelog.ui.home
+package io.github.fuadreza.storelog.view.home
 
 import androidx.lifecycle.LiveData
-import io.github.fuadreza.storelog.model.Supply
+import io.github.fuadreza.storelog.database.entity.Supply
 
 /**
  * Dibuat dengan kerjakerasbagaiquda oleh Shifu pada tanggal 26/09/2020.

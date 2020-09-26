@@ -1,4 +1,4 @@
-package io.github.fuadreza.storelog.model
+package io.github.fuadreza.storelog.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
