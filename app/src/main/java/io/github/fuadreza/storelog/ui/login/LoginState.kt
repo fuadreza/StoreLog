@@ -10,6 +10,7 @@ import io.github.fuadreza.storelog.model.User
 
 sealed class LoginState  {
     object LoginSuccess : LoginState()
+    object LoginError: LoginState()
 
     data class onLoginState(val user: LiveData<User>): LoginState()
 

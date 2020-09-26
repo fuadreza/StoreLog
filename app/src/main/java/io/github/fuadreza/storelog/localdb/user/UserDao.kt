@@ -17,9 +17,11 @@ import io.github.fuadreza.storelog.utils.MyConstants
 interface UserDao {
 
     @Query("SELECT * FROM ${MyConstants.DB.USER} WHERE username = :username AND password = :password")
-    fun getUser(username: String, password: String): LiveData<User>
+    fun getUser(username: String, password: String): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User)
 
+    @Query("DELETE FROM ${MyConstants.DB.USER}")
+    suspend fun deleteAll()
 }

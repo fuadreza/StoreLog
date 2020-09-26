@@ -14,11 +14,11 @@ import io.github.fuadreza.storelog.repo.UserRepo
  *
  */
 
-class LoginViewModel (application: Application, repo: UserRepo) : AndroidViewModel(application) {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _loginState = MutableLiveData<LoginState>()
     private val repository: UserRepo
-    val loginState :LiveData<LoginState> get() = _loginState
+    val loginState: LiveData<LoginState> get() = _loginState
 
     var user: LiveData<User> = MutableLiveData()
 
@@ -28,8 +28,12 @@ class LoginViewModel (application: Application, repo: UserRepo) : AndroidViewMod
     }
 
     suspend fun login(username: String, password: String) {
-        repository.loginUser(username, password)
-        _loginState.value = LoginState.LoginSuccess
+        val result = repository.loginUser(username, password)
+        if (result) {
+            _loginState.postValue(LoginState.LoginSuccess)
+        } else {
+            _loginState.postValue(LoginState.LoginError)
+        }
     }
 
 }

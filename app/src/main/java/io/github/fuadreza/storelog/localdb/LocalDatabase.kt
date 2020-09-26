@@ -67,6 +67,8 @@ abstract class LocalDatabase: RoomDatabase() {
 
         suspend fun populateDatabase(userDao: UserDao){
 
+            userDao.deleteAll()
+
             var user = User(0,userName = "admin1", passWord = "123456")
             userDao.insert(user)
             user = User(1,userName = "admin2", passWord = "123456")
