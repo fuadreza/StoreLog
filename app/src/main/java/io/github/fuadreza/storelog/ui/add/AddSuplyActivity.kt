@@ -1,8 +1,8 @@
 package io.github.fuadreza.storelog.ui.add
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import io.github.fuadreza.storelog.R
@@ -42,17 +42,24 @@ class AddSuplyActivity : AppCompatActivity() {
     }
 
     private fun addNewSupply() {
-        var name = supplyName.text.toString()
-        var count: Int = supplyCount.text.toString().toInt()
-        var supplier = supplySupplier.text.toString()
+        val name = supplyName.text.toString()
+        val count = supplyCount.text.toString()
+        val supplier = supplySupplier.text.toString()
 
-        var supply = Supply(0, name = name, items = count, supplier = supplier, date = "2020")
-
-        CoroutineScope(IO).launch {
-            supplyViewModel.addSupply(supply)
-            finish()
+        if (validate(name, count, supplier)) {
+            val supply = Supply(0, name = name, items = count.toInt(), supplier = supplier, date = "2020")
+            CoroutineScope(IO).launch {
+                supplyViewModel.addSupply(supply)
+                finish()
+            }
+        } else {
+            Toast.makeText(this, "Please fill all the information", Toast.LENGTH_LONG).show()
         }
 
+    }
+
+    private fun validate(name: String?, count: String?, supplier: String?): Boolean {
+        return !(name!!.isEmpty() || count!!.isEmpty()|| supplier!!.isEmpty())
     }
 
     private fun setupViews() {

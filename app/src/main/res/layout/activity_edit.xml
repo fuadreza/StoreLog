@@ -62,7 +62,7 @@
                 android:id="@+id/btn_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add Supply"/>
+                android:text="Save"/>
 
             <Button
                 android:id="@+id/btn_delete"

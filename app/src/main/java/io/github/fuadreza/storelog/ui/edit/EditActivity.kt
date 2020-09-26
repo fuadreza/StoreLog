@@ -1,6 +1,8 @@
 package io.github.fuadreza.storelog.ui.edit
 
 import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +27,10 @@ class EditActivity : AppCompatActivity() {
     var count: Int = 0
     var supplierName: String = ""
 
+    lateinit var supplyName: TextView
+    lateinit var supplyCount: TextView
+    lateinit var supplySupplier: TextView
+
     private val EXTRA_SUPPLY = "EXTRA_SUPPLY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,16 +52,7 @@ class EditActivity : AppCompatActivity() {
         })
 
         btn_add.setOnClickListener {
-            val updatedSupply = Supply(
-                supply.supplyId,
-                sup_name.text.toString(),
-                sup_count.text.toString().toInt(),
-                supplier.text.toString(),
-                "2020"
-            )
-            CoroutineScope(Dispatchers.IO).launch {
-                supplyViewModel.updateSupply(updatedSupply)
-            }
+            saveData(supply.supplyId)
         }
 
         btn_delete.setOnClickListener {
@@ -66,18 +63,46 @@ class EditActivity : AppCompatActivity() {
 
     }
 
-    private fun setupViews(supply: Supply) {
-        sup_name.setText(supply.name)
-        sup_count.setText(supply.items.toString())
-        supplier.setText(supply.supplier)
+
+    private fun saveData(id: Int) {
+
+        val name = supplyName.text.toString()
+        val count = supplyCount.text.toString()
+        val supplier = supplySupplier.text.toString()
+
+        if (validate(name, count, supplier)) {
+            val updatedSupply = Supply(
+                id,
+                name,
+                count.toInt(),
+                supplier,
+                "2020"
+            )
+
+            CoroutineScope(Dispatchers.IO).launch {
+                supplyViewModel.updateSupply(updatedSupply)
+            }
+        } else {
+            Toast.makeText(this, "There is still empty imformation", Toast.LENGTH_LONG).show()
+        }
     }
 
-    private fun dataState(supply: Supply?) {
+    private fun setupViews(supply: Supply) {
+        supplyName = sup_name
+        supplyCount = sup_count
+        supplySupplier = supplier
 
+        supplyName.text = supply.name
+        supplyCount.text = supply.items.toString()
+        supplySupplier.text = supply.supplier
+    }
+
+    private fun validate(name: String?, count: String?, supplier: String?): Boolean {
+        return !(name!!.isEmpty() || count!!.isEmpty() || supplier!!.isEmpty())
     }
 
     private fun handleUI(state: SupplyState?) {
-        when(state) {
+        when (state) {
             is SupplyState.OnSuccess -> finish()
         }
     }
