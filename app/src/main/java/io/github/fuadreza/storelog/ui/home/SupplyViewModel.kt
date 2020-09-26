@@ -42,6 +42,11 @@ class SupplyViewModel constructor(application: Application) : AndroidViewModel(a
         _supply = repository.getSupplyById(id)
     }
 
+    suspend fun deleteById(id: Int){
+        repository.delete(id)
+        _supplyStete.postValue(SupplyState.OnSuccess)
+    }
+
     suspend fun updateSupply(supply: Supply){
         repository.updateSupply(supply)
         _supplyStete.postValue(SupplyState.OnSuccess)

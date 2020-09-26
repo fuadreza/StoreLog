@@ -8,7 +8,7 @@ import io.github.fuadreza.storelog.R
 import io.github.fuadreza.storelog.model.Supply
 import io.github.fuadreza.storelog.ui.home.SupplyState
 import io.github.fuadreza.storelog.ui.home.SupplyViewModel
-import kotlinx.android.synthetic.main.activity_add.*
+import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ class EditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add)
+        setContentView(R.layout.activity_edit)
 
         val supply = intent.getSerializableExtra(EXTRA_SUPPLY) as Supply
 
@@ -55,6 +55,12 @@ class EditActivity : AppCompatActivity() {
             )
             CoroutineScope(Dispatchers.IO).launch {
                 supplyViewModel.updateSupply(updatedSupply)
+            }
+        }
+
+        btn_delete.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                supplyViewModel.deleteById(supply.supplyId)
             }
         }
 
