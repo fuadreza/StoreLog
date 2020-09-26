@@ -25,4 +25,8 @@ class SupplyRepo(private val supplyDao: SupplyDao) {
         return supplyDao.getSupplyById(id)
     }
 
+    suspend fun updateSupply(supply: Supply) {
+        supplyDao.update(supply)
+    }
+
 }

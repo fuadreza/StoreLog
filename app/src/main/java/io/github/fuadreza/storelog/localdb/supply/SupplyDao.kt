@@ -22,6 +22,9 @@ interface SupplyDao  {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(supply: Supply)
 
+    @Update
+    suspend fun update(supply: Supply)
+
     @Query("DELETE FROM ${MyConstants.DB.SUPPLY} WHERE id = :id")
     suspend fun delete(id: Int)
 

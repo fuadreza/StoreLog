@@ -1,6 +1,7 @@
 package io.github.fuadreza.storelog.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,20 +9,29 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.github.fuadreza.storelog.R
 import io.github.fuadreza.storelog.model.Supply
+import io.github.fuadreza.storelog.ui.edit.EditActivity
 
 /**
  * Dibuat dengan kerjakerasbagaiquda oleh Shifu pada tanggal 26/09/2020.
  *
  */
 
-class SupplyAdapter constructor(context: Context): RecyclerView.Adapter<SupplyAdapter.ViewHolder>() {
+class SupplyAdapter constructor(context: Context) :
+    RecyclerView.Adapter<SupplyAdapter.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var supplies = emptyList<Supply>()
 
+    private val EXTRA_SUPPY = "EXTRA_SUPPLY"
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SupplyAdapter.ViewHolder {
-        val itemView = inflater.inflate(R.layout.item_supply, parent,false)
-        return ViewHolder(itemView)
+        val itemView = inflater.inflate(R.layout.item_supply, parent, false)
+        return ViewHolder(itemView).listen { pos, type ->
+            val supply = supplies[pos]
+            val intent = Intent(parent.context, EditActivity::class.java)
+            intent.putExtra(EXTRA_SUPPY, supply)
+            parent.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = supplies.size
@@ -33,8 +43,8 @@ class SupplyAdapter constructor(context: Context): RecyclerView.Adapter<SupplyAd
         holder.supplier.text = current.supplier
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val name : TextView = itemView.findViewById(R.id.supply_name)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val name: TextView = itemView.findViewById(R.id.supply_name)
         val count: TextView = itemView.findViewById(R.id.suppy_count)
         val supplier: TextView = itemView.findViewById(R.id.suppy_suplier)
     }

@@ -18,10 +18,13 @@ import io.github.fuadreza.storelog.repo.SupplyRepo
 class SupplyViewModel constructor(application: Application) : AndroidViewModel(application){
 
     private val _supplyStete = MutableLiveData<SupplyState>()
+    private var _supply: LiveData<Supply> = MutableLiveData()
 
     private var repository: SupplyRepo
 
     var allSupplies: LiveData<List<Supply>> = MutableLiveData()
+
+    val supply: LiveData<Supply> get() = _supply
 
     val supplyState: LiveData<SupplyState> get() = _supplyStete
 
@@ -35,4 +38,12 @@ class SupplyViewModel constructor(application: Application) : AndroidViewModel(a
         repository.insert(supply)
     }
 
+    suspend fun getSupplyById(id: Int){
+        _supply = repository.getSupplyById(id)
+    }
+
+    suspend fun updateSupply(supply: Supply){
+        repository.updateSupply(supply)
+        _supplyStete.postValue(SupplyState.OnSuccess)
+    }
 }
