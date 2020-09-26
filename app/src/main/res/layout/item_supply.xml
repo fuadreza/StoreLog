@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginBottom="8dp"
-    >
+    android:layout_margin="8dp">
 
-    <TextView
-        android:id="@+id/supply_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"/>
+        android:padding="8dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/suppy_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"/>
+        <TextView
+            android:id="@+id/supply_name"
+            android:layout_width="150dp"
+            android:textColor="@color/colorPrimary"
+            tools:text="SUPLY NAME GOES HERE"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp" />
 
-    <TextView
-        android:id="@+id/suppy_suplier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"/>
+        <TextView
+            android:id="@+id/suppy_count"
+            android:layout_width="50dp"
+            tools:text="10000"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/suppy_suplier"
+            android:layout_width="100dp"
+            tools:text="SUPLIER GOES HERE"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
