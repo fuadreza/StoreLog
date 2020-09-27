@@ -19,7 +19,7 @@ interface UserDao {
     fun getUser(username: String, password: String): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: User)
+    fun insert(user: User)
 
     @Query("DELETE FROM ${MyConstants.DB.USER}")
     suspend fun deleteAll()

@@ -41,17 +41,19 @@ class SupplyAdapter constructor(context: Context) :
         holder.name.text = current.name
         holder.count.text = current.items.toString()
         holder.supplier.text = current.supplier
+        holder.date.text = current.date
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.supply_name)
         val count: TextView = itemView.findViewById(R.id.suppy_count)
         val supplier: TextView = itemView.findViewById(R.id.suppy_suplier)
+        val date: TextView = itemView.findViewById(R.id.supply_date)
     }
 
     fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int, type: Int) -> Unit): T {
         itemView.setOnClickListener {
-            event.invoke(getAdapterPosition(), getItemViewType())
+            event.invoke(adapterPosition, itemViewType)
         }
         return this
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp">
 
     <LinearLayout
         android:id="@+id/header"
@@ -23,18 +23,24 @@
             android:text="Item" />
 
         <TextView
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="4dp"
             android:textStyle="bold"
-            android:text="Count" />
+            android:text="Q" />
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:textStyle="bold"
             android:text="Supplier" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

@@ -12,17 +12,17 @@ import javax.inject.Inject
 
 class SupplyRepository @Inject constructor(private val supplyDao: SupplyDao) {
 
-    suspend fun fetchSupply() = supplyDao.fetch()
+    fun fetchSupply() = supplyDao.fetch()
 
-    suspend fun insert(supply: Supply){
+    suspend fun insert(supply: Supply) {
         supplyDao.insert(supply)
     }
 
-    suspend fun delete(id: Int){
+    suspend fun delete(id: Int) {
         supplyDao.delete(id)
     }
 
-    suspend fun getSupplyById(id: Int): LiveData<Supply>{
+    suspend fun getSupplyById(id: Int): LiveData<Supply> {
         return supplyDao.getSupplyById(id)
     }
 

@@ -11,10 +11,10 @@ import io.github.fuadreza.storelog.utils.MyConstants
  */
 
 @Dao
-interface SupplyDao  {
+interface SupplyDao {
 
     @Query("SELECT * FROM ${MyConstants.DB.SUPPLY}")
-    fun fetch() : LiveData<List<Supply>>
+    fun fetch(): LiveData<List<Supply>>
 
     @Query("SELECT * FROM ${MyConstants.DB.SUPPLY} WHERE id = :id")
     fun getSupplyById(id: Int): LiveData<Supply>

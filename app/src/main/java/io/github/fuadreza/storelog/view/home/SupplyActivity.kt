@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 @AndroidEntryPoint
 class SupplyActivity : AppCompatActivity(), LifecycleOwner {
 
-     private val supplyViewModel: SupplyViewModel by viewModels()
+    private val supplyViewModel: SupplyViewModel by viewModels()
 
     private lateinit var supplyAdapter: SupplyAdapter
 
@@ -33,15 +32,7 @@ class SupplyActivity : AppCompatActivity(), LifecycleOwner {
 
         lifecycle.addObserver(supplyViewModel)
 
-        /*supplyViewModel = ViewModelProvider(this).get(SupplyViewModel::class.java).apply {
-
-        }*/
-
         initAdapter()
-
-        /*val adapter = SupplyAdapter(this)
-        recycler_view.adapter = adapter
-        recycler_view.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)*/
 
         clickListener()
 

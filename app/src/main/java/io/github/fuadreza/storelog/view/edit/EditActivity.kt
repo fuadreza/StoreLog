@@ -6,16 +6,17 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.fuadreza.storelog.R
 import io.github.fuadreza.storelog.database.entity.Supply
-import io.github.fuadreza.storelog.view.home.SupplyState
 import io.github.fuadreza.storelog.viewmodel.SupplyViewModel
+import io.github.fuadreza.storelog.viewmodel.state.SupplyState
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Dibuat dengan kerjakerasbagaiquda oleh Shifu pada tanggal 26/09/2020.
@@ -45,10 +46,16 @@ class EditActivity : AppCompatActivity() {
 
         lifecycle.addObserver(supplyViewModel)
 
-        supplyViewModel.supplyState.observe(this, Observer<SupplyState> { state ->
-            handleUI(state)
-        })
+        clickListener(supply)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        observe()
+    }
+
+    private fun clickListener(supply: Supply) {
         btn_add.setOnClickListener {
             saveData(supply.supplyId)
         }
@@ -58,7 +65,12 @@ class EditActivity : AppCompatActivity() {
                 supplyViewModel.deleteById(supply.supplyId)
             }
         }
+    }
 
+    private fun observe() {
+        supplyViewModel.supplyState.observe(this, Observer<SupplyState> { state ->
+            handleUI(state)
+        })
     }
 
 
@@ -68,6 +80,9 @@ class EditActivity : AppCompatActivity() {
         val count = supplyCount.text.toString()
         val supplier = supplySupplier.text.toString()
 
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyy hh:mm:ss", Locale.getDefault())
+        val currentDate = simpleDateFormat.format(Date())
+
         if (validate(name, count, supplier)) {
             val updatedSupply =
                 Supply(
@@ -75,7 +90,7 @@ class EditActivity : AppCompatActivity() {
                     name,
                     count.toInt(),
                     supplier,
-                    "2020"
+                    currentDate
                 )
 
             CoroutineScope(Dispatchers.IO).launch {

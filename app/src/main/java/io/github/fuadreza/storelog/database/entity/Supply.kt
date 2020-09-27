@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.github.fuadreza.storelog.utils.MyConstants
 import java.io.Serializable
-import java.util.*
 
 /**
  * Dibuat dengan kerjakerasbagaiquda oleh Shifu pada tanggal 26/09/2020.
@@ -15,7 +14,7 @@ import java.util.*
     tableName = MyConstants.DB.SUPPLY
 )
 
-data class Supply (
+data class Supply(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ID)
@@ -33,7 +32,7 @@ data class Supply (
     @ColumnInfo(name = DATE)
     val date: String
 
-): Serializable {
+) : Serializable {
     companion object {
         const val ID = "id"
         const val NAME = "supply_name"

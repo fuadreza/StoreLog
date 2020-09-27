@@ -5,7 +5,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.fuadreza.storelog.R
 import io.github.fuadreza.storelog.database.entity.Supply
@@ -14,6 +13,8 @@ import kotlinx.android.synthetic.main.activity_add.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Dibuat dengan kerjakerasbagaiquda oleh Shifu pada tanggal 26/09/2020.
@@ -34,15 +35,16 @@ class AddSuplyActivity : AppCompatActivity() {
 
         lifecycle.addObserver(supplyViewModel)
 
-        /*supplyViewModel = ViewModelProvider(this).get(SupplyViewModel::class.java).apply {
-
-        }*/
         setupViews()
 
+        clickListener()
+
+    }
+
+    private fun clickListener() {
         btn_add.setOnClickListener {
             addNewSupply()
         }
-
     }
 
     private fun addNewSupply() {
@@ -50,13 +52,16 @@ class AddSuplyActivity : AppCompatActivity() {
         val count = supplyCount.text.toString()
         val supplier = supplySupplier.text.toString()
 
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyy hh:mm:ss", Locale.getDefault())
+        val currentDate = simpleDateFormat.format(Date())
+
         if (validate(name, count, supplier)) {
             val supply = Supply(
                 0,
                 name = name,
                 items = count.toInt(),
                 supplier = supplier,
-                date = "2020"
+                date = currentDate
             )
             CoroutineScope(IO).launch {
                 supplyViewModel.addSupply(supply)
@@ -69,7 +74,7 @@ class AddSuplyActivity : AppCompatActivity() {
     }
 
     private fun validate(name: String?, count: String?, supplier: String?): Boolean {
-        return !(name!!.isEmpty() || count!!.isEmpty()|| supplier!!.isEmpty())
+        return !(name!!.isEmpty() || count!!.isEmpty() || supplier!!.isEmpty())
     }
 
     private fun setupViews() {

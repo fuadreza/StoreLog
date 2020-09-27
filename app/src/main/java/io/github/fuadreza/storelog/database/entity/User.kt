@@ -23,7 +23,7 @@ data class User(
     val userId: Int,
 
     @ColumnInfo(name = USERNAME)
-    val userName : String? = "",
+    val userName: String? = "",
 
     @ColumnInfo(name = PASSWORD)
     val passWord: String? = ""
